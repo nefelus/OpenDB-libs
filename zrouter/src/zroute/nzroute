@@ -1,0 +1,14 @@
+#!/bin/ksh -p
+#
+# ATHENA DS 2004-2006
+#
+# Run zde producing a log
+#
+# -- now form the command
+cmd="ade"
+for opt in "$@" 
+do
+	cmd="$cmd '$opt'"
+done
+
+exec script -q -c "$cmd" ade.log

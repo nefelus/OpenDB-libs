@@ -1,0 +1,15 @@
+#!/bin/sh
+#
+# run zroute using a debugger
+#
+#
+dir=$(dirname $0)
+cwd=$(pwd)
+zroute=$dir/ade
+zroutesh=$dir/zroutesh
+tmp=$HOME/.gzrouterc
+echo "def zrun 
+cd $cwd
+run $zroute $@
+end" > $tmp
+xxgdb -command=$tmp $zroutesh

@@ -1,0 +1,33 @@
+%{
+#include "rpl.h"
+%}
+module RPL
+{
+	constructor
+	(
+	);
+    	export test_cmd
+	(
+	in string file = "test_file"  [ usage = "lef file"; ],
+        in bool all_models [ usage = "Delete all extract models" ; ],
+        in bool ext_only [ usage = "Delete only extract objects" ; ]
+	);
+    	export test_init
+	(
+        in int val [ usage = "test int val" ; ],
+        in string msg [ usage = "test string val" ; ]
+	);
+    	export dump_init
+	(
+	);
+    	export init_place
+	(
+	);
+    	export read_db
+	(
+	);
+    	export dump
+	(
+	in string file = "out_file"  [ usage = "dump file"; ]
+	);
+}

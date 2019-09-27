@@ -1,0 +1,11 @@
+%{
+#include "ZSession.h"
+%}
+
+module ZSession "ZTMSession"
+{
+    constructor
+    ( 
+        out string session [ usage = "session address"; ]
+    );
+}

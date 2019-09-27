@@ -1,0 +1,16 @@
+#!/bin/sh
+#
+# run zroute using the gdb debugger inside emacs
+#
+dir=$(dirname $0)
+cwd=$(pwd)
+zroute=$dir/zroute
+zroutesh=$dir/zroutesh
+echo "$0 will overwrite ~/.gdbinit"
+tmp=$HOME/.gdbinit
+echo "def zrun
+file $zroutesh
+cd $cwd
+run $zroute $@
+end" > $tmp
+exec emacs

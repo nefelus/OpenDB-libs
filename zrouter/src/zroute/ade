@@ -1,0 +1,60 @@
+#!/bin/ksh -p
+# (-p so we do not read the ksh profile. Some ksh do that)
+# -- zrouter server
+# \
+    d=$(dirname $0); PATH=$d:$PATH exec zroutesh $0 "$@"
+
+package require Itcl
+
+# -- hack for dimitris
+#rename source src
+#proc source {file} {
+#    uplevel [list src $file]
+#}
+set top [file dirname [file norm $argv0]]
+
+# -- are we running in dev mode?
+if [string match */zrouter/src/* $top] {
+    set lib [file dirname $top]
+    puts stderr "NOTICE: $argv0 running in development mode"
+} else {
+    set lib [file join [file dirname $top] lib]
+}
+set auto_path \
+    [concat $lib [file join $lib zroute] [file join $lib mtlib] $auto_path]
+
+set appname [file tail $argv0]
+append auto_path " [file join $lib milos]"
+set appname [file tail $argv0]
+package require ade::main 1.0
+if { $appname ne "ade" } {
+    package require ade::$appname 1.0
+}
+package require ade::license 1.0
+package require LMSH 1.0
+
+#LLogger::Auto -logfile -
+
+if { $appname == "turborc" } {
+    set rcp "~/.turborc:./.turborc"
+} else {
+    set rcp "~/.${appname}rc:./.${appname}rc"
+}
+
+if [catch { ZROUTE zr -rcpath $rcp ; zr Run } err ] {
+    global errorInfo
+    puts stderr "ade: runtime error"
+    puts stderr $errorInfo
+    if { $::tcl_platform(platform) == "windows" } {
+	puts stderr "-- RETURN to EXIT -- "
+	gets stdin line
+    }
+    exit 100
+}
+set rc [zr Wait]
+zr delete
+# -- rc is the exit code
+if { $rc == "" } { 
+    set rc 0
+}
+exit $rc

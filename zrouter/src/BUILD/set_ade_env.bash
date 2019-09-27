@@ -1,6 +1,6 @@
 #!/bin/bash
 
-RELEASE=/home/centos/LIBS/OpenDB-libs/zrouter
+RELEASE=/home/centos/LIBS/test/OpenDB-libs/zrouter/
 
 PATH=$RELEASE/bin:$RELEASE/x86-64-linux/zrouter/bin:$RELEASE/msh/dist/i386-linux/bin/:$PATH
 

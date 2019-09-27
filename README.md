@@ -9,10 +9,7 @@ To start, source the script set_ade_envi.bash after modifying it to correctly po
 Then type ade to enter the OpenDB tcl shell. Be sure that running the script is done to affect your current shell and not a short lived subshell.
 
 Eve though the .a's are prebuilt, you must "build" locally after cloning. This is the same build procedure that will be used when all of the code is open sourced.
-cd zrouter/src
-make clean
-make
-make install
+cd zrouter/src; make clean; make; make install
 
 
 
